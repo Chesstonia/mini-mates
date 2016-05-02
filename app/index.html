@@ -1,33 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="myApp">
   <head>
     <link rel="stylesheet" href="./script/chessboard.js/css/chessboard-0.3.0.css">
 
     <script type="text/javascript" src="script/chessboard.js/js/chessboard-0.3.0.js"></script>
     <script type="text/javascript" src="script/jquery/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="script/angular.js"></script>
+    <script type="text/javascript" src="script/chess.js"></script>
   </head>
 
   <body>
 
-    <div id="board1" style="width: 50%"></div>
+    
+    <div id="board1" data-ng-controller="SimpleController" style="width: 50%"></div>
 
     <script>
-      var board1 = ChessBoard('board1', {
-        position: 'start',
-        pieceTheme: 'script/chessboard.js/img/chesspieces/wikipedia/{piece}.png',
-        draggable: true,
-        dropOffBoard: 'snapback',
-        showNotation: true,
-        showErrors: 'alert',
-        onDrop: function(source, target, piece, newPosition, oldPosition, orientation){
-            console.log(source);
-            console.log(target);
-            console.log(piece);
-            console.log(newPosition);
-            console.log(oldPosition);
-            console.log(orientation);
-        }
+      var app = angular.module("myApp", []).controller("SimpleController", function($scope){
+        var fen = '2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - -';
+        $scope.chessBoard = ChessBoard('board1', {
+          position: fen,
+          pieceTheme: 'script/chessboard.js/img/chesspieces/wikipedia/{piece}.png',
+          draggable: true,
+          dropOffBoard: 'snapback',
+          showNotation: true,
+          showErrors: 'alert',
+          onDrop: function(source, target, piece, newPosition, oldPosition, orientation){
+              console.log(source);
+              console.log(target);
+              console.log(piece);
+              console.log(newPosition);
+              console.log(oldPosition);
+              console.log(orientation);
+          }
+        });
+
+        $scope.board = new Chess(fen);
       });
     </script>
+
   </body>
 </html>
