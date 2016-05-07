@@ -1,8 +1,19 @@
 var done = false;
-var app = angular.module("myApp", []).controller("SimpleController", function($scope){
+var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
   $scope.positions = positionList;
   $scope.count = 0;
+  $scope.timerValue = 30;
+  $interval(function(){
+    if (done) return;
+
+    $scope.timerValue -= 1;
+    if ($scope.timerValue == 0){
+        $scope.done();
+    }
+  }, 1000);
+
   $scope.showRandomPosition = function(){
+      if (done) return;
       var index = Math.floor(Math.random() * positionList.length);
       $scope.fen = positionList[index].fen;
       var solution = positionList[index].solution;
@@ -24,7 +35,8 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 		  var move = $scope.board.move({from: source, to: target});
 		  if (move == null) return 'snapback';
 		  if (move.san == (solution + "#")){
-		      $scope.count++;
+		      $scope.count += 1;;
+		      $scope.$apply();
 		  }
 		  $scope.showRandomPosition();
 	      }
@@ -32,21 +44,11 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
   }
 
   $scope.done = function(){
+      done = true;
+      $("#board1").hide();
+      console.log("you finished " + $scope.count + " in 30 seconds");
       alert("you finished " + $scope.count + " in 30 seconds!");
   };
 
   $scope.showRandomPosition();
-
-  function timer(x){
-      if (x == 60 * 5) {
-	  done = true;
-	  $scope.done();
-      } else {
-	  setTimeout(function(){
-		  timer(x + 1);
-	      }, 1000);
-      }
-  }
-
-  timer(0);
 });
