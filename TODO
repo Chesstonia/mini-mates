@@ -1,0 +1,15 @@
+allow user to select amount of time
+allow user to select problem set
+show a better report at the end
+show the problems at the end
+use capistrano to deploy to instance
+better way of parsing problems
+show high-score table
+set up service for high scores
+add service for getting problems
+fix emacs undo/meta problem
+refactor page to have services
+create a dotfiles repo
+let 2 people compete
+database catalog
+move js logic to server
