@@ -3,10 +3,9 @@ show timer on page
 allow user to select amount of time
 show a better report at the end
 show the problems at the end
-get an AWS instance up
+wrap in a sails app
 use capistrano to deploy to instance
 better way of parsing problems
-set up mate-in-2 problem set
 allow user to select problem set
 show high-score table
 set up service for high scores
@@ -15,3 +14,6 @@ fix emacs undo/meta problem
 explore github organization
 refactor page to have services
 create a dotfiles repo
+let 2 people compete
+database catalog
+move js logic to server

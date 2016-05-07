@@ -38,7 +38,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
   $scope.showRandomPosition();
 
   function timer(x){
-      if (x == 30) {
+      if (x == 60 * 5) {
 	  done = true;
 	  $scope.done();
       } else {
