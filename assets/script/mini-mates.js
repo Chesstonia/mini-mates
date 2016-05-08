@@ -35,6 +35,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	      dropOffBoard: 'snapback',
 	      showNotation: true,
 	      showErrors: 'alert',
+	      sparePieces: true,
 	      onDrop: function(source, target, piece, newPosition, oldPosition, orientation){
 		  if (done) return;
 		  
