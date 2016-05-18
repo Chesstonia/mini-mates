@@ -1,9 +1,14 @@
 var done = false;
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
-  $scope.positions = positionList;
-  $scope.correctCount = 0;
-  $scope.incorrectCount = 0;
-  $scope.timerValue = 30;
+   $scope.initialize = function(){
+      done = false;
+      $scope.positions = positionList;
+      $scope.correctCount = 0;
+      $scope.incorrectCount = 0;
+      $scope.timerValue = 30;
+      $scope.showRandomPosition();
+  }
+
   $interval(function(){
     if (done) return;
 
@@ -68,5 +73,5 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
       alert("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes!");
   };
 
-  $scope.showRandomPosition();
+  $scope.initialize();
 });
