@@ -2,6 +2,7 @@ var done = false;
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
   $scope.positions = positionList;
   $scope.correctCount = 0;
+  $scope.incorrectCount = 0;
   $scope.timerValue = 30;
   $interval(function(){
     if (done) return;
@@ -46,11 +47,15 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 		  for (var i = 0; i < solutionMoves.length; i++){
 		      var solutionMove = solutionMoves[i];
 
+		      var solved = false;
 		      if ((move.san == (solutionMove + "#")) || (("" + move.from + move.to) == solutionMove)){
 			  $scope.correctCount += 1;;
 			  $scope.$apply();
+			  solved = true;
 			  break;
 		      }
+		      if (!solved)
+			  $scope.incorrectCount += 1;
 		  }
 		  $scope.showRandomPosition();
 	      }
@@ -59,8 +64,8 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 
   $scope.done = function(){
       done = true;
-      console.log("you finished " + $scope.correctCount + " in 30 seconds");
-      alert("you finished " + $scope.correctCount + " in 30 seconds!");
+      console.log("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes");
+      alert("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes!");
   };
 
   $scope.showRandomPosition();
