@@ -6,7 +6,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.ground = Chessground(document.getElementById('ground7'), {
 	       viewOnly: false,
 	       animation: {
-		   duration: 500
+		   enabled: false
 	       },
 	       movable: {
 		   free: true,
@@ -46,24 +46,21 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    }
    
    $scope.onDrop = function(source, target, piece, newPosition, oldPosition, orientation){
+       console.log("hit ondrop");
        if (done) return;
-       
-       var move = $scope.board.move({from: source, to: target});
-       if (move == null) return 'snapback';
        
        var solutionMoves = $scope.solution.split(" ");
        for (var i = 0; i < solutionMoves.length; i++){
 	   var solutionMove = solutionMoves[i];
-	   
 	   var solved = false;
-	   if ((move.san == (solutionMove + "#")) || (("" + move.from + move.to) == solutionMove)){
+	   if ((source + target) == solutionMove.substring(0,4)){
+	       console.log("correct!");
 	       $scope.correctCount += 1;;
 	       $scope.$apply();
-	       solved = true;
-	       break;
-	   }
-	   if (!solved)
+	   } else {
+	       console.log("incorrect");
 	       $scope.incorrectCount += 1;
+	   }
        }
        $scope.getRandomPosition();
        $scope.showPosition();
@@ -71,7 +68,6 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    
    $scope.showPosition = function(){
        var fen = $scope.fen;
-       $scope.board = new Chess(fen);        
        if (fen.includes(" b ")) {
 	   $scope.color = "black";
        } else {
