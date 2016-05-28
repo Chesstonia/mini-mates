@@ -46,7 +46,6 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    }
    
    $scope.onDrop = function(source, target, piece, newPosition, oldPosition, orientation){
-       console.log("hit ondrop");
        if (done) return;
        
        var solutionMoves = $scope.solution.split(" ");
@@ -57,7 +56,10 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	       console.log("correct!");
 	       $scope.correctCount += 1;;
 	       $scope.$apply();
-	   } else {
+	       solved = true;
+	       break;
+	   }
+	   if (!solved){
 	       console.log("incorrect");
 	       $scope.incorrectCount += 1;
 	   }
