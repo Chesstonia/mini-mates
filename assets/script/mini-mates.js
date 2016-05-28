@@ -26,7 +26,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.positions = positionList;
        $scope.correctCount = 0;
        $scope.incorrectCount = 0;
-       $scope.timerValue = 30;
+       $scope.timerValue = 180;
    }
    
    $interval(function(){
