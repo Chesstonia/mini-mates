@@ -59,10 +59,10 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	       solved = true;
 	       break;
 	   }
-	   if (!solved){
-	       console.log("incorrect");
-	       $scope.incorrectCount += 1;
-	   }
+       }
+       if (!solved){
+	   console.log("incorrect");
+	   $scope.incorrectCount += 1;
        }
        $scope.getRandomPosition();
        $scope.showPosition();
