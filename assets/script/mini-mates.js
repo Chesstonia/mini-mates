@@ -1,28 +1,32 @@
 var done = false;
+var initialized = false;
 
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
    $scope.initialize = function(){
-       $scope.getRandomPosition();
-       $scope.ground = Chessground(document.getElementById('ground7'), {
-	       viewOnly: false,
-	       animation: {
-		   enabled: false
-	       },
-	       movable: {
-		   free: true,
-		   premove: false,
-		   events: {
-		       after: $scope.onDrop
+       if (!initialized){ // only true the first time
+	   initialized = true;
+	   $scope.ground = Chessground(document.getElementById('ground7'), {
+		   viewOnly: false,
+		   animation: {
+		       enabled: false
+		   },
+		   movable: {
+		       free: true,
+		       premove: false,
+		       events: {
+			   after: $scope.onDrop
+		       }
+		   },
+		   drawable: {
+		       enabled: true
 		   }
-	       },
-	       drawable: {
-		   enabled: true
-	       }
 	   });
-       window.cg6 = $scope.ground;       
+	   window.cg6 = $scope.ground;       
+       }
+       done = false;
+       $scope.getRandomPosition();
        $scope.showPosition();
        
-       done = false;
        $scope.positions = positionList;
        $scope.correctCount = 0;
        $scope.incorrectCount = 0;
