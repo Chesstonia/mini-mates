@@ -28,6 +28,10 @@ section p {
   width: 512px;
   height: 512px;
 }
+.chessground.large {
+  width: 1024px;
+  height: 1024px;
+}
 .cg-board-wrap svg {
   opacity: 0.6;
   overflow: hidden;
