@@ -11,7 +11,8 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 		       enabled: false
 		   },
 		   movable: {
-		       free: true,
+		       free: false,
+		       dropoff: "revert",
 		       premove: false,
 		       events: {
 			   after: $scope.onDrop
@@ -47,6 +48,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        var index = Math.floor(Math.random() * positionList.length);
        $scope.fen = positionList[index].fen;
        $scope.solution = positionList[index].solution;
+       $scope.chess = new Chess($scope.fen);
    }
    
    $scope.onDrop = function(source, target, piece, newPosition, oldPosition, orientation){
@@ -82,7 +84,11 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.ground.set({
 	       fen: fen,
 	       orientation: $scope.color,
-	       turnColor: $scope.color
+	       turnColor: $scope.color,
+	       movable: { 
+		   dests: $scope.chessToDests($scope.chess),
+		   showDests: false
+	       }
 	   });
    }
    
@@ -92,5 +98,14 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        alert("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes!");
    };
    
+   $scope.chessToDests = function(chess) {
+       var dests = {};
+       chess.SQUARES.forEach(function(s) {
+	       var ms = chess.moves({square: s, verbose: true});
+	       if (ms.length) dests[s] = ms.map(function(m) { return m.to; });
+	   });
+       return dests;
+   }
+
    $scope.initialize();
     });
