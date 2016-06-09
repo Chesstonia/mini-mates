@@ -10,6 +10,10 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 		   animation: {
 		       enabled: false
 		   },
+		   highlight: {
+		       lastMove: false,
+		       check: false		       
+		   },
 		   movable: {
 		       free: false,
 		       dropoff: "revert",
