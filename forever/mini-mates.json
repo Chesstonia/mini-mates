@@ -1,0 +1,7 @@
+{
+    "uid": "mini-mates",
+    "append": true,
+    "watch": true,
+    "script": "app.js --prod",
+    "sourceDir": "/var/www/mini-mates/current"
+}
