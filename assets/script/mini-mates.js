@@ -43,7 +43,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	   if (done) return;
 	   
 	   $scope.timerValue -= 1;
-	   if ($scope.timerValue == 0){
+	   if ($scope.timerValue <= 0){
 	       $scope.done();
 	   }
        }, 1000);
