@@ -20,7 +20,6 @@ module.exports = function (shipit) {
     });
     
     shipit.on('deployed', function(){
-	    shipit.remote("ps -ef | grep sails | head -1 | cut -d' ' -f3 | xargs kill");
-	    shipit.remote('node ' + path + '/current/app.js --prod');
+	    shipit.remote("forever restart 0");
     });
 };
