@@ -20,10 +20,7 @@ module.exports = function (shipit) {
     });
     
     shipit.on('deployed', function(){
-	    shipit.remote('forever start ' + path + '/current/forever/mini-mates.json');
-    });
-    
-    shipit.on('deploy', function(){
-	    shipit.remote('forever stop ' + path + '/current/forever/mini-mates.json');
+	    shipit.remote("ps -ef | grep sails | head -1 | cut -d' ' -f3 | xargs kill");
+	    shipit.remote('node ' + path + '/current/app.js --prod');
     });
 };
