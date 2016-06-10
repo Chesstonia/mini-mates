@@ -1,5 +1,6 @@
 var done = false;
 var initialized = false;
+var timerStartValue = 30;
 
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
    $scope.initialize = function(){
@@ -35,7 +36,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.positions = positionList;
        $scope.correctCount = 0;
        $scope.incorrectCount = 0;
-       $scope.timerValue = 180;
+       $scope.timerValue = timerStartValue;
    }
    
    $interval(function(){
@@ -64,7 +65,8 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	   var solved = false;
 	   if ((source + target) == solutionMove.substring(0,4)){
 	       console.log("correct!");
-	       $scope.correctCount += 1;;
+	       $scope.correctCount += 1;
+	       $scope.timerValue += 5;
 	       $scope.$apply();
 	       solved = true;
 	       break;
@@ -73,6 +75,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        if (!solved){
 	   console.log("incorrect");
 	   $scope.incorrectCount += 1;
+	   $scope.timerValue -= 2;
        }
        $scope.getRandomPosition();
        $scope.showPosition();
@@ -98,8 +101,10 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    
    $scope.done = function(){
        done = true;
-       console.log("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes");
-       alert("you finished " + $scope.correctCount + " in 30 seconds with " + $scope.incorrectCount + " mistakes!");
+       var duration = timerStartValue + 5 * $scope.correctCount;
+       var report = "you got " + $scope.correctCount + " correct, with " + $scope.incorrectCount + " mistakes, and stayed alive for " + duration + " seconds!";
+       console.log(report);
+       alert(report);
    };
    
    $scope.chessToDests = function(chess) {
