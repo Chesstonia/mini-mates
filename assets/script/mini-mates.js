@@ -1,6 +1,7 @@
 var done = false;
 var initialized = false;
 var timerStartValue = 30;
+var initialBonus = 10;
 
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
    $scope.initialize = function(){
@@ -36,15 +37,21 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.positions = positionList;
        $scope.correctCount = 0;
        $scope.incorrectCount = 0;
+       $scope.timeLasted = 0;
        $scope.timerValue = timerStartValue;
+       $scope.bonus = initialBonus;
+       $scope.puzzlesNeeded = 1;
+       $scope.bonusRequirement = 1;
    }
    
    $interval(function(){
 	   if (done) return;
 	   
-	   $scope.timerValue -= 1;
 	   if ($scope.timerValue <= 0){
 	       $scope.done();
+	   } else {
+	       $scope.timerValue -= 1;
+	       $scope.timeLasted++;
 	   }
        }, 1000);
    
@@ -66,7 +73,12 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
 	   if ((source + target) == solutionMove.substring(0,4)){
 	       console.log("correct!");
 	       $scope.correctCount += 1;
-	       $scope.timerValue += 5;
+	       $scope.puzzlesNeeded--;
+	       if ($scope.puzzlesNeeded == 0){
+		   $scope.timerValue += $scope.bonus;
+		   $scope.puzzlesNeeded = $scope.bonusRequirement;
+		   $scope.bonusRequirement++;
+	       }
 	       $scope.$apply();
 	       solved = true;
 	       break;
@@ -75,7 +87,6 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        if (!solved){
 	   console.log("incorrect");
 	   $scope.incorrectCount += 1;
-	   $scope.timerValue -= 2;
        }
        $scope.getRandomPosition();
        $scope.showPosition();
@@ -101,8 +112,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    
    $scope.done = function(){
        done = true;
-       var duration = timerStartValue + 5 * $scope.correctCount;
-       var report = "you got " + $scope.correctCount + " correct, with " + $scope.incorrectCount + " mistakes, and stayed alive for " + duration + " seconds!";
+       var report = "you got " + $scope.correctCount + " correct, with " + $scope.incorrectCount + " mistakes, and stayed alive for " + $scope.timeLasted + " seconds!";
        console.log(report);
        alert(report);
    };
