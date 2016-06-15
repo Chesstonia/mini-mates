@@ -1,6 +1,7 @@
 var done = false;
 var initialized = false;
 var timerStartValue = 30;
+var timerDisplay;
 var initialBonus = 30;
 
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
@@ -45,15 +46,22 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    }
    
    $interval(function(){
-	   if (done) return;
-	   
-	   if ($scope.timerValue <= 0){
-	       $scope.done();
-	   } else {
-	       $scope.timerValue -= 1;
-	       $scope.timeLasted++;
-	   }
-       }, 1000);
+			var minutes = parseInt($scope.timerValue / 60, 10);
+			var seconds = parseInt($scope.timerValue % 60, 10);
+			
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			$scope.timerDisplay = minutes + ":" + seconds;
+			
+			if (done) return;
+
+			if ($scope.timerValue <= 0) {
+				$scope.done();
+			} else {
+				$scope.timerValue -= 1;
+				$scope.timeLasted++;
+			}
+   }, 1000);
    
    $scope.getRandomPosition = function(){
        if (done) return;

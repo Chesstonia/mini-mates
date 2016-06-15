@@ -1,3 +1,25 @@
+html,
+body {
+	height: 100%;
+}
+
 body {
 	background-color: @c-primary;
+}
+
+.aligner--center {
+	.flex-display;
+	.align-items(center);
+	.justify-content(center);
+}
+
+.cg-board {
+	.border-radius(6px, 6px, 6px, 6px);
+	.drop-shadow(0,0,12px, 0.2);
+}
+
+.content {
+	&:extend(.aligner--center);
+
+	height: 100%;
 }
