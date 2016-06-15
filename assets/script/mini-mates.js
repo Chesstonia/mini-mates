@@ -1,7 +1,7 @@
 var done = false;
 var initialized = false;
 var timerStartValue = 30;
-var initialBonus = 10;
+var initialBonus = 30;
 
 var app = angular.module("myApp", []).controller("SimpleController", function($scope, $interval){
    $scope.initialize = function(){
@@ -96,8 +96,10 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        var fen = $scope.fen;
        if (fen.includes(" b ")) {
 	   $scope.color = "black";
+	   $("body").css("background-color", "000");
        } else {
 	   $scope.color = "white";
+	   $("body").css("background-color","FFF");
        }
        $scope.ground.set({
 	       fen: fen,
