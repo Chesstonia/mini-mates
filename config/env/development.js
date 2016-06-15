@@ -20,5 +20,7 @@ module.exports = {
   // models: {
   //   connection: 'someMongodbServer'
   // }
-
+  views: {
+  	layout: 'dev'
+  }
 };
