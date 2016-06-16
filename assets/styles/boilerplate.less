@@ -32,6 +32,7 @@ div {
 	&:extend(.aligner--center);
 
 	height: 100%;
+	padding-top: @site-header-height;
 }
 
 .label {
@@ -50,7 +51,6 @@ div {
 	.drop-shadow(0,0,8px, 0.2);
 
 	background-color: lighten(@c-primary, 10%);
-	margin-left: 40px;
 
 	section {
 		text-align: center;
@@ -100,13 +100,78 @@ div {
 	.flex-display;
 	.align-items(flex-start);
 
+	.container:last-of-type {
+		min-width: 150px;
+		margin-left: 40px;
+
+		.button {
+			margin-top: 20px;
+			width: 100%;
+		}
+	}
+
 	.position-meta {
-		padding: 20px;
+		margin-top: 20px;
 		text-align: center;
 		letter-spacing: 2px;
 
 		.label {
 			font-size: @t-gamma;
 		}
+	}
+}
+
+
+.button {
+	.gradient(@color: lighten(@c-primary, 20%), @start: darken(@c-accent, 20%), @stop: darken(@c-accent, 5%));
+	.border-radius(6px,6px,6px,6px);
+	.drop-shadow(0,0, 8px, 0.2);
+	.transition(@duration:0.2s, @ease:ease-in-out);
+
+	background-size: auto 200%;
+	background-position: 0 100%;
+	border: none;
+	color: @c-primary;
+	cursor: pointer;
+	font-family: @font-primary;
+	font-size: @t-epsilon;
+	font-weight: 700;
+	padding: 20px;
+	text-shadow: 0 1px rgba(255,255,255, 0.5);
+
+	-webkit-appearance: none;
+
+	&:hover {
+		.drop-shadow(0,0,6px, 0.4);
+
+		background-position: 0 0;
+	}
+}
+
+.site-header {
+	background-color: darken(@c-primary, 5%);
+	height: @site-header-height;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+
+	header {
+		mix-width: 1000px;
+		margin: 0 auto;
+		text-align: center;
+
+		h1 {
+			font-family: @font-secondary;
+			font-weight: normal;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			text-shadow: 0 1px 1px rgba(0,0,0, 0.4);
+		}
+	}
+
+	.logo {
+		.border-radius(4px,4px,4px,4px);
+		.drop-shadow(0,1px,4px,0.3);
 	}
 }
