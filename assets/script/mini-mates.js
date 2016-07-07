@@ -34,7 +34,8 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        $scope.getRandomPosition();
        $scope.showPosition();
        
-       $scope.positions = positionList;
+       $scope.problemSet = "matein1";
+       $scope.positions = mates;
        $scope.correctCount = 0;
        $scope.incorrectCount = 0;
        $scope.timeLasted = 0;
@@ -45,6 +46,7 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    }
    
    $interval(function(){
+	   console.log($scope.problemSet);
 	   if (done) return;
 	   
 	   if ($scope.timerValue <= 0){
@@ -57,9 +59,15 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
    
    $scope.getRandomPosition = function(){
        if (done) return;
-       var index = Math.floor(Math.random() * positionList.length);
-       $scope.fen = positionList[index].fen;
-       $scope.solution = positionList[index].solution;
+       if ($scope.problemSet == "hanging"){
+	   $scope.positions = hangers;
+       } else {
+	   $scope.positions = mates;
+       }
+       var index = Math.floor(Math.random() * $scope.positions.length);
+       
+       $scope.fen = $scope.positions[index].fen;
+       $scope.solution = $scope.positions[index].solution;
        $scope.chess = new Chess($scope.fen);
    }
    
@@ -70,7 +78,15 @@ var app = angular.module("myApp", []).controller("SimpleController", function($s
        for (var i = 0; i < solutionMoves.length; i++){
 	   var solutionMove = solutionMoves[i];
 	   var solved = false;
-	   if ((source + target) == solutionMove.substring(0,4)){
+	   var correct = false;
+	   if ($scope.problemSet == "matein1"){
+	       if ((source + target) == solutionMove.substring(0,4))
+		   correct = true;
+	   } else {
+	       if (solutionMove.split(" ").indexOf(target) != -1)
+		   correct = true;
+	   }
+	   if (correct) {
 	       console.log("correct!");
 	       $scope.correctCount += 1;
 	       $scope.puzzlesNeeded--;

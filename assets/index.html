@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="script/jquery/jquery-2.2.3.js"></script>
     <script type="text/javascript" src="script/mater.js"></script>
+    <script type="text/javascript" src="script/hanging.js"></script>
   </head>
   <body>
     <script src="../chessground.js"></script>
@@ -23,6 +24,10 @@
 	  <div class="info">Incorrect: {{incorrectCount}}</div>
 	  <div class="info">Puzzles until bonus: {{puzzlesNeeded}}</div>
 	  <div class="info">{{timerValue}} seconds left</div>
+	  <select name="problemSet" id="problemSet" ng-model="problemSet">
+	    <option value="matein1">Mate-in-1s</option> 
+	    <option value="hanging">Hanging Pieces</option>
+	  </select>
 	  <button data-ng-click="initialize()">Reset</button>
 	</div>
 

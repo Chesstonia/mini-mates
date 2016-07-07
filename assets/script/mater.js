@@ -1,4 +1,4 @@
-var positionList = [
+var mates = [
 { fen: '1B1Qq1k1/5p1p/4p1pP/4n3/8/Ppp2P2/1P4P1/1K6 w - - 2 38', solution: 'd8e8' },
 { fen: '1B1Qr2k/p5pp/8/p1N2p2/3P4/8/PPP2PPP/R5K1 w - - 2 23', solution: 'd8e8' },
 { fen: '1B2k3/p3bp2/6p1/2p5/P3P3/np3P2/r7/2KR2R1 b - - 5 34', solution: 'a2c2' },
