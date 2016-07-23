@@ -1,38 +1,22 @@
 (function() {
-    var app = angular.module("partsApp", []);
+    var boardModule = angular.module("boardModule", []);
+    var boardCount = 1;
 
-    app.directive("chessBoard", function(){
+    boardModule.directive("chessBoard", function(){
         return {
 	    restrict: 'E',
+	    scope: { },
 	    template: '<div id="board" class="chessground small blue cburnett"></div>',
-	    controller: function(){
+	    controller: function($scope){
 		this.onDrop = function(){
 		    console.log(arguments);
 		};
 
-		var options = {
-		    viewOnly: false,
-		    animation: {
-		        enabled: false
-		    },
-		    highlight: {
-                        lastMove: false,
-			check: false
-		    },
-		    movable: {
-			free: true,
-			dropoff: "revert",
-			premove: false,
-			events: {
-			    after: this.onDrop
-			}
-		    },
-		    drawable: {
-			enabled: true
-		    }
-		}
-		this.board = Chessground(document.getElementById('board'), options);
+		this.board = Chessground(document.getElementById("board"));
 	    }
         };
     });
+
+    var app = angular.module("partsApp", ["boardModule"]);
+
 })();
